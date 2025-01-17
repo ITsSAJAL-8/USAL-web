@@ -93,7 +93,7 @@ function GoToNextPage() {
                         class="fab fa-youtube"></i></a>
 
                 <h2>YouTube</h2>
-                <p id="sub_count"></p>
+                <p id="sub1_count"></p>
                 <h3>Subscribers</h3>
             </div>
             <div class="content">
@@ -108,7 +108,7 @@ function GoToNextPage() {
                 <a href="#"><i onclick="location.href='https://t.me/+K9Qhk2C3zwM4ODQ9'" class='bx bxl-telegram'></i></a>
 
                 <h2>Telegram</h2>
-                <p>6100+</p>
+                <p id="sub2_count"></p>
                 <h3>Members</h3>
             </div>
             <div class="content">
@@ -495,19 +495,34 @@ function GoToNextPage() {
             const apiKey = "AIzaSyDUhY32v_888zTHoqzWp4liOrwTnBaEx1A";
             const channelId = "UClDYnqtEinrFgvpGvh6roTg";
 
-            
 
-            const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${apiKey}`;
-            fetch(url)
+
+            const YTurl = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${apiKey}`;
+            fetch(YTurl)
                 .then(response => response.json())
                 .then(data => {
-                 
+
                     const channel = data.items[0];
-                        document.getElementById('sub_count').innerText = ` ${channel.statistics.subscriberCount}`;
-                    
+                    document.getElementById('sub1_count').innerText = ` ${channel.statistics.subscriberCount}`;
+
+                })
+
+       
+            const botToken = "7447690896:AAEtUiV1L4NeJtEIMMOyIO4gB3r2L8sol8s";
+            const chatId = "-1002008601392"; 
+
+            const TELEurl = `https://api.telegram.org/bot${botToken}/getChatMembersCount?chat_id=${chatId}`;
+
+            fetch(TELEurl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        document.getElementById('sub2_count').innerText = ` ${data.result}`;
+                    } 
                 })
                 
         }
+
         window.onload = fetchSubscriberCount;
     </script>
 </body>
